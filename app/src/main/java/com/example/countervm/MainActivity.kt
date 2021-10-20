@@ -3,6 +3,7 @@ package com.example.countervm
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -19,32 +20,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.count.observe(this){
-
+        viewModel.count.observe(this) {
+            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
         }
+    }
 
-        viewModel.seconds.observe(this, Observer {
-            binding.tvCountDownNumber.text = it.toString()
-        })
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+    }
 
-        viewModel.finished.observe(this, Observer {
-            if(it){
-                Toast.makeText(this, "Count is over!", Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        binding.btnStart.setOnClickListener{
-            if(binding.etEnterNumber.text.isEmpty() || binding.etEnterNumber.text.length < 5) {
-                Toast.makeText(this, "Invalid Number", Toast.LENGTH_SHORT).show()
-            } else {
-                val number = binding.etEnterNumber.text.toString().toLong()
-                viewModel._timerValue.value = number
-                viewModel.startTimer()
-            }
-        }
-
-        binding.btnStop.setOnClickListener{
-            viewModel.stopTimer()
-        }
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 }
