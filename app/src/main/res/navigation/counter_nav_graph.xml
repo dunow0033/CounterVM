@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/counter_nav_graph"
+    app:startDestination="@id/counter_fragment">
+
+    <fragment
+        android:id="@+id/counter_fragment"
+        android:name="com.example.countervm.ui.view.fragment.CounterFragment"
+        tool:layout="@layout/fragment_counter">
+        <action
+            android:id="@+id/counter_fragment_to_congrats_fragment"
+            app:destination="@+id/congrats_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/congrats_fragment"
+        android:name="com.example.countervm.ui.view.fragment.CongratsFragment"
+        tool:layout="@layout/fragment_congrats" />
+
+</navigation>
